@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import Sidebar from "../components/Sidebar";
 import "../styles/Reports.css";
+import { toast } from "react-toastify";
 
 function Reports() {
   const [period, setPeriod] = useState("month");
@@ -75,8 +76,8 @@ function Reports() {
             Income Report (
             {period.toUpperCase()})
           </h2>
-
-          <table>
+        <div className="report-table">
+                    <table>
             <thead>
               <tr>
                 <th>Amount</th>
@@ -105,39 +106,43 @@ function Reports() {
           </table>
         </div>
 
+        </div>
+
         <div className="report-card">
           <h2>
             Expense Report (
             {period.toUpperCase()})
           </h2>
+          <div className="report-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Amount</th>
+                  <th>Category</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
 
-          <table>
-            <thead>
-              <tr>
-                <th>Amount</th>
-                <th>Category</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {reportData.expense.map(
-                (item) => (
-                  <tr key={item.id}>
-                    <td>
-                      ₦{item.amount}
-                    </td>
-                    <td>
-                      {item.category}
-                    </td>
-                    <td>
-                      {item.description}
-                    </td>
-                  </tr>
-                )
-              )}
-            </tbody>
-          </table>
+              <tbody>
+                {reportData.expense.map(
+                  (item) => (
+                    <tr key={item.id}>
+                      <td>
+                        ₦{item.amount}
+                      </td>
+                      <td>
+                        {item.category}
+                      </td>
+                      <td>
+                        {item.description}
+                      </td>
+                    </tr>
+                  )
+                )}
+              </tbody>
+            </table>
+            
+          </div>
         </div>
             {
             role === "admin" && (

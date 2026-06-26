@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Sidebar from "../components/Sidebar";
 import "../styles/Income.css";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 function Expense() {
   const [expenses, setExpenses] = useState([]);
@@ -40,12 +42,16 @@ function Expense() {
           formData
         );
 
+        toast.success("Expense updated successfully!");
+
         setEditingId(null);
       } else {
         await axios.post(
           "http://localhost:5000/expense",
           formData
         );
+
+        toast.success("Expense added successfully!");
       }
 
       setFormData({
@@ -57,6 +63,7 @@ function Expense() {
       fetchExpense();
     } catch (error) {
       console.log(error);
+      toast.error("Something went wrong!");
     }
   };
 
@@ -70,23 +77,44 @@ function Expense() {
     });
   };
 
-  const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(
-      "Delete this expense record?"
+const handleDelete = async (id) => {
+  const result = await Swal.fire({
+    title: "Delete Expense?",
+    text: "You won't be able to recover this record.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#dc2626",
+    cancelButtonColor: "#6b7280",
+    confirmButtonText: "Yes, Delete",
+    cancelButtonText: "Cancel",
+    reverseButtons: true,
+  });
+
+  if (!result.isConfirmed) return;
+
+  try {
+    await axios.delete(
+      `http://localhost:5000/expense/${id}`
     );
 
-    if (!confirmDelete) return;
+    fetchIncome();
 
-    try {
-      await axios.delete(
-        `http://localhost:5000/expense/${id}`
-      );
+    Swal.fire({
+      title: "Deleted!",
+      text: "Expense record deleted successfully.",
+      icon: "success",
+      timer: 1800,
+      showConfirmButton: false,
+    });
 
-      fetchExpense();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  } catch (error) {
+    Swal.fire({
+      title: "Error",
+      text: "Something went wrong.",
+      icon: "error",
+    });
+  }
+};
 
   const role = localStorage.getItem("role");
 
@@ -171,9 +199,9 @@ function Expense() {
                     .toLowerCase()
                     .includes(search.toLowerCase())
                 )
-                .map((expense) => (
+                .map((expense, index) => (
                   <tr key={expense.id}>
-                    <td>{expense.id}</td>
+                    <td >{index + 1}</td>
                     <td>₦{expense.amount}</td>
                     <td>{expense.category}</td>
                     <td>{expense.description}</td>
@@ -184,7 +212,7 @@ function Expense() {
                           <button
                             className="edit-btn"
                             onClick={() =>
-                              handleEdit(income)
+                              handleEdit(expense)
                             }
                           >
                             Edit
@@ -197,7 +225,7 @@ function Expense() {
                           <button
                             className="delete-btn"
                             onClick={() =>
-                              handleDelete(income.id)
+                              handleDelete(expense.id)
                             }
                           >
                             Delete

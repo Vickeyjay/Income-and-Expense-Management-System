@@ -1,61 +1,55 @@
 .income-form {
   margin-top: 30px;
-  background: white;
+  background: var(--card);
   padding: 25px;
-  border-radius: 15px;
+  border-radius: 16px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 15px;
-  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
 }
 
 .income-form input {
-  height: 45px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 0 12px;
+  height: 48px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0 14px;
+  background: var(--card);
+  color: var(--text);
+  outline: none;
+  transition: .3s;
+}
+
+.income-form input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, .15);
 }
 
 .income-form button {
-  border: none;
-  background: #2563eb;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.table-container {
-  margin-top: 30px;
-  overflow-x: auto;
-}
-
-table {
   width: 100%;
-  background: white;
-  border-collapse: collapse;
-  border-radius: 15px;
-  overflow: hidden;
-}
-
-th {
-  background: #2563eb;
-  color: white;
-  padding: 15px;
-  text-align: left;
-}
-
-td {
-  padding: 15px;
-  border-bottom: 1px solid #eee;
-}
-
-.delete-btn {
-  background: #dc2626;
-  color: white;
+  min-height: 48px;
+  padding: 12px 20px;
   border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
+  border-radius: 10px;
+  background: #3b82f6;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: .3s;
+}
+
+.income-form button:hover {
+  background: #2563eb;
+}
+
+.income-form button:hover {
+  opacity: .9;
+  transform: translateY(-2px);
 }
 
 .search-box {
@@ -64,8 +58,53 @@ td {
   margin-top: 25px;
   margin-bottom: 20px;
   padding: 0 15px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
   border-radius: 10px;
+  background: var(--card);
+  color: var(--text);
+  outline: none;
+}
+
+.search-box:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.15);
+}
+
+.table-container {
+  margin-top: 30px;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  min-width: 750px;
+  background: var(--card-bg);
+  border-collapse: collapse;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+th {
+  background: var(--primary);
+  color: white;
+  padding: 16px;
+  text-align: left;
+}
+
+td {
+  padding: 16px;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+}
+
+tbody tr {
+  transition: .3s;
+}
+
+tbody tr:hover {
+  background: var(--hover);
 }
 
 .action-buttons {
@@ -73,17 +112,108 @@ td {
   gap: 10px;
 }
 
-.edit-btn {
-  background: #f59e0b;
-  color: white;
+.edit-btn,
+.delete-btn {
   border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
+  padding: 9px 15px;
+  border-radius: 8px;
   cursor: pointer;
+  color: white;
+  transition: .3s;
 }
 
-@media (max-width: 900px) {
+.edit-btn {
+  background: #f59e0b;
+}
+
+.edit-btn:hover {
+  background: #d97706;
+}
+
+.delete-btn {
+  background: var(--danger);
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+tbody tr {
+  transition: all 0.25s ease;
+}
+
+tbody tr:hover {
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.dark tbody tr:hover {
+  background: rgba(59, 130, 246, 0.15);
+}
+
+@media (max-width: 768px) {
+
   .income-form {
     grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .page-content {
+    padding: 20px;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .table-container {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 750px;
+  }
+
+  .action-buttons {
+    flex-wrap: wrap;
+  }
+
+
+  /* Hide the ID column */
+  table th:first-child,
+  tbody td:first-child{
+    display: none;
+  }
+
+  /* Give remaining columns better spacing */
+  table th,
+  table td {
+    padding: 12px 10px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  /* Make action buttons stack */
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    width: 100%;
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  /* Keep horizontal scrolling if needed */
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    min-width: 620px;
   }
 }
+

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Sidebar from "../components/Sidebar";
 import "../styles/Income.css";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 function Income() {
   const [incomes, setIncomes] = useState([]);
@@ -47,38 +49,51 @@ function Income() {
 
   try {
     if (editingId) {
-      await axios.put(
-        `http://localhost:5000/income/${editingId}`,
-        formData
-      );
+  await axios.put(
+    `http://localhost:5000/income/${editingId}`,
+    formData
+  );
 
-      setEditingId(null);
-    } else {
-      await axios.post(
-        "http://localhost:5000/income",
-        formData
-      );
-    }
+  toast.success("Income updated successfully!");
 
-    setFormData({
-      amount: "",
-      category: "",
-      description: "",
-    });
+  setEditingId(null);
+} else {
+  await axios.post(
+    "http://localhost:5000/income",
+    formData
+  );
 
-    fetchIncome();
+  toast.success("Income added successfully!");
+}
+
+setFormData({
+  amount: "",
+  category: "",
+  description: "",
+});
+
+fetchIncome();
   } catch (error) {
     console.log(error);
+    toast.error("Something went wrong!");
   }
 };
 
 
 const handleDelete = async (id) => {
-  const confirmDelete = window.confirm(
-    "Delete this income record?"
-  );
+  const result = await Swal.fire({
+    title: "Delete Income?",
+    text: "You won't be able to recover this record.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#dc2626",
+    cancelButtonColor: "#6b7280",
+    confirmButtonText: "Yes, Delete",
+    cancelButtonText: "Cancel",
+    reverseButtons: true,
+  });
 
-  if (!confirmDelete) return;
+  if (!result.isConfirmed) return;
 
   try {
     await axios.delete(
@@ -86,8 +101,21 @@ const handleDelete = async (id) => {
     );
 
     fetchIncome();
+
+    Swal.fire({
+      title: "Deleted!",
+      text: "Income record deleted successfully.",
+      icon: "success",
+      timer: 1800,
+      showConfirmButton: false,
+    });
+
   } catch (error) {
-    console.log(error);
+    Swal.fire({
+      title: "Error",
+      text: "Something went wrong.",
+      icon: "error",
+    });
   }
 };
 
@@ -141,7 +169,7 @@ const role = localStorage.getItem("role");
           />
 
           <button type="submit">
-            Add Income
+            {editingId ? "Update Income" : "Add Income"}
           </button>
         </form>
 
@@ -172,9 +200,9 @@ const role = localStorage.getItem("role");
                     .toLowerCase()
                     .includes(search.toLowerCase())
                 )
-                .map((income) => (
+                .map((income, index) => (
                 <tr key={income.id}>
-                  <td>{income.id}</td>
+                  <td>{index + 1}</td>
                   <td>₦{income.amount}</td>
                   <td>{income.category}</td>
                   <td>{income.description}</td>

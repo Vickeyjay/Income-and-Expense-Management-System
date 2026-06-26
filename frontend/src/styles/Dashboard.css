@@ -1,3 +1,30 @@
+.hero-banner {
+  background: linear-gradient(135deg, #2563eb, #3b82f6, #60a5fa);
+  color: white;
+  border-radius: 20px;
+  padding: 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+  box-shadow: 0 15px 35px rgba(37, 99, 235, .35);
+}
+
+.hero-banner h1 {
+  font-size: 38px;
+  margin-bottom: 12px;
+}
+
+.hero-banner p {
+  opacity: .95;
+  font-size: 17px;
+}
+
+.hero-date {
+  font-size: 18px;
+  font-weight: 600;
+}
+
 .page-layout {
   display: flex;
   min-height: 100vh;
@@ -5,8 +32,14 @@
 
 .page-content {
   flex: 1;
-  background: #f5f7fb;
+  background: var(--bg);
+  color: var(--text);
   padding: 40px;
+  transition: 0.3s;
+}
+
+.page-content h1 {
+  margin-bottom: 30px;
 }
 
 .cards {
@@ -17,60 +50,139 @@
 }
 
 .card {
-  background: white;
+  background: var(--card);
   padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
 }
 
 .card h3 {
-  color: #666;
+  color: var(--text-light);
   margin-bottom: 10px;
+  font-size: 15px;
 }
 
 .card h2 {
-  color: #2563eb;
+  color: var(--primary);
+  font-size: 30px;
+  margin: 0;
 }
 
 .cards .income {
-    color: #43af04;
+  color: var(--success);
 }
 
 .cards .expense {
-    color: #eb4d25;
+  color: var(--danger);
 }
 
 .recent-section {
-  margin-top: 30px;
+  margin-top: 35px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
 .recent-card {
-  background: white;
-  border-radius: 15px;
+  background: var(--card);
+  border-radius: 16px;
   padding: 25px;
-  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.recent-card h2 {
+  margin-bottom: 20px;
 }
 
 .transaction-item {
   display: flex;
   justify-content: space-between;
-  padding: 12px 0;
-  border-bottom: 1px solid #eee;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+.transaction-item:last-child {
+  border-bottom: none;
+}
+
+.transaction-item span:last-child {
+  font-weight: 600;
+}
+
+.card {
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+.recent-card {
+  transition: all 0.3s ease;
+}
+
+.recent-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 900px) {
+
+  .hero-banner {
+  padding: 25px 25px 25px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  gap: 12px;
+}
+
+.hero-banner h1 {
+  font-size: 30px;
+}
+
+.hero-banner p {
+  opacity: .95;
+  font-size: 15px;
+}
+
+.hero-date {
+  font-size: 18px;
+  font-weight: 600;
+}
+  
   .page-layout {
     flex-direction: column;
   }
 
-  .cards {
-    grid-template-columns: 1fr;
+  .page-content {
+    width: 100%;
+    padding: 20px;
+    margin-left: 0;
   }
 
-    .recent-section {
+  .cards {
     grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .recent-section {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .card,
+  .recent-card {
+    width: 100%;
   }
 }

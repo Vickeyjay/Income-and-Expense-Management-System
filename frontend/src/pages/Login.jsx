@@ -24,16 +24,13 @@ function Login() {
         }
       );
 
+      localStorage.setItem("isLoggedIn", "true");
+
       localStorage.setItem(
-        "userRole",
-        response.data.role
+        "username",
+        username
       );
 
-      localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem(
-      "role",
-      response.data.role
-    );
       navigate("/dashboard");
     } catch (error) {
   setError("Invalid username or password");

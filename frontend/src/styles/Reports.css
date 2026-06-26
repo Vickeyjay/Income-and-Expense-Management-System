@@ -1,29 +1,48 @@
-.filter-buttons {
-  display: flex;
-  gap: 10px;
-  margin: 20px 0;
-  flex-wrap: wrap;
+.filter-buttons{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:20px 0;
+}
+
+.filter-buttons button{
+    flex:1;
+    min-width:90px;
 }
 
 .filter-buttons button {
   border: none;
-  background: #2563eb;
+  background: var(--primary);
   color: white;
   padding: 10px 18px;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
+  transition: .3s;
+  font-weight: 600;
+}
+
+.filter-buttons button:hover {
+  opacity: .9;
+  transform: translateY(-2px);
+}
+
+.report-table{
+    width:100%;
+    overflow-x:auto;
 }
 
 .report-card {
   margin-top: 25px;
-  background: white;
+  background: var(--card);
   padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
 }
 
 .report-card h2 {
   margin-bottom: 20px;
+  color: var(--text);
 }
 
 .report-card table {
@@ -32,27 +51,112 @@
 }
 
 .report-card th {
-  background: #2563eb;
+  background: var(--primary);
   color: white;
-  padding: 12px;
+  padding: 14px;
+  text-align: left;
 }
 
 .report-card td {
-  padding: 12px;
-  border-bottom: 1px solid #eee;
+  padding: 14px;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+}
+
+.report-card tbody tr {
+  transition: .3s;
+}
+
+.report-card tbody tr:hover {
+  background: var(--hover);
 }
 
 .export-buttons {
   margin-top: 25px;
   display: flex;
   gap: 15px;
+  flex-wrap: wrap;
 }
 
 .export-buttons button {
   border: none;
-  background: #16a34a;
+  background: var(--success);
   color: white;
   padding: 12px 20px;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
+  transition: .3s;
+  font-weight: 600;
+}
+
+.export-buttons button:hover {
+  transform: translateY(-2px);
+  opacity: .9;
+}
+
+tbody tr {
+  transition: all 0.25s ease;
+}
+
+tbody tr:hover {
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.dark tbody tr:hover {
+  background: rgba(59, 130, 246, 0.15);
+}
+
+@media(max-width:768px){
+
+.export-buttons{
+
+    flex-direction:column;
+
+}
+
+.filter-buttons{
+
+    justify-content:center;
+
+}
+
+.report-card{
+
+    padding:18px;
+
+}
+
+ .filter-buttons{
+        flex-direction:row;
+    }
+
+    .filter-buttons button{
+        flex:1;
+    }
+
+    .report-card{
+        padding:18px;
+    }
+
+    .report-card h2{
+        font-size:24px;
+    }
+
+    .export-buttons{
+        flex-direction:column;
+    }
+
+    .export-buttons button{
+        width:100%;
+    }
+
+    .report-card table{
+        min-width: 100%;
+    }
+
+    
+    .hide-mobile{
+        display:none;
+    }
+
 }

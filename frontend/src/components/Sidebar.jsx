@@ -1,17 +1,35 @@
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import ThemeToggle from "./ThemeToggle";
 import "./Sidebar.css";
 
 function Sidebar() {
   const location = useLocation();
 
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
     navigate("/");
+
+    const navigate = useNavigate();
 };
 
   return (
-    <div className="sidebar">
+    <>
+  <button
+    className="menu-btn"
+    onClick={() => setMenuOpen(!menuOpen)}
+  >
+    ☰
+  </button>
+
+  <div
+    className={`sidebar ${
+      menuOpen ? "show-sidebar" : ""
+    }`}
+  >
       <div className="sidebar-logo">
         <h2>IEMS</h2>
       </div>
@@ -54,6 +72,8 @@ function Sidebar() {
           Reports
         </Link>
 
+          <ThemeToggle />
+
         <Link
           to="/"
           onClick={() => {
@@ -64,6 +84,7 @@ function Sidebar() {
         </Link>
       </div>
     </div>
+  </>
   );
 }
 

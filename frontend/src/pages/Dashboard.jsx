@@ -50,6 +50,44 @@ function Dashboard() {
       <Sidebar />
 
       <div className="page-content">
+
+        <div className="hero-banner">
+
+          <div>
+
+              <h1>
+                  Welcome back,
+                  {
+                    localStorage.getItem("username")
+                      ? localStorage.getItem("username").charAt(0).toUpperCase() +
+                        localStorage.getItem("username").slice(1)
+                      : "User"
+                  }
+                  !
+              </h1>
+
+              <p>
+                  Manage your income and expenses
+                  smarter and faster.
+              </p>
+
+          </div>
+
+          <div className="hero-date">
+
+              {new Date().toLocaleDateString(
+                  "en-GB",
+                  {
+                      weekday: "long",
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                  }
+              )}
+
+          </div>
+
+      </div>
         <h1>Dashboard</h1>
 
         <div className="cards">
